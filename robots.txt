@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lakeminnetonkaprobate.com/sitemap.xml
