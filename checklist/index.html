@@ -34,8 +34,8 @@
     { "@type": "HowToStep", "name": "Tell the insurance carrier the house is unoccupied", "text": "Most homeowners policies treat a vacant home differently, and the coverage everyone assumes is in place may not be. Tell your attorney what the carrier says." },
     { "@type": "HowToStep", "name": "Leave the heat on", "text": "The utility bills cost far less than one frozen pipe. Keep power and water running until someone decides otherwise." },
     { "@type": "HowToStep", "name": "Write down who has a key", "text": "Neighbors, cleaners, the lawn service, family. Once you have the list, you can decide whether the locks need changing." },
-    { "@type": "HowToStep", "name": "Stop or forward the mail", "text": "A full mailbox tells the whole street the house is empty." },
-    { "@type": "HowToStep", "name": "Do not clear anything out yet", "text": "Belongings can be estate assets. Ask your attorney what has to be inventoried before anything leaves the house." },
+    { "@type": "HowToStep", "name": "Stop the mail and keep the yard up", "text": "A full mailbox and long grass tell the whole street the house is empty. Whoever mowed it before is usually glad to keep going." },
+    { "@type": "HowToStep", "name": "Photograph the rooms before anything moves", "text": "Belongings can be estate assets and this is what families argue about most. Photos taken before the first box leaves settle arguments that otherwise have no answer. Ask your attorney what has to be inventoried first." },
     { "@type": "HowToStep", "name": "You do not have to answer the fast-cash offers", "text": "Probate filings are public, so the offers start early. None of them are urgent and none of them expire." },
     { "@type": "HowToStep", "name": "You do not have to decide about selling", "text": "You may still need a value for the estate, which is a separate question from whether anyone sells. Your attorney or CPA will tell you which one you actually need." }
   ]
@@ -93,6 +93,7 @@
   }
   .btn.solid { background: var(--gold); color: #fff; border-color: var(--gold); }
   .btn:hover { background: var(--gold-deep); border-color: var(--gold-deep); color: #fff; }
+  .print-only { display: none; }
   .nogate { font-size: 14px; color: var(--muted); margin: 12px 0 0; font-style: italic; }
 
   ol { list-style: none; counter-reset: item; margin: 0; padding: 0; }
@@ -124,32 +125,40 @@
 
   /* ---------- PRINT: collapse to the clean one-pager ---------- */
   @media print {
-    @page { size: letter; margin: 0.6in 0.7in 0.5in 0.7in; }
-    html, body { background: #fff !important; color: #111 !important; font-size: 10.6pt; line-height: 1.42; }
+    @page { size: letter; margin: 0.45in 0.65in; }
+    html, body { background: #fff !important; color: #111 !important; font-size: 10.7pt; line-height: 1.38; }
     body { font-family: Calibri, Carlito, Helvetica, Arial, sans-serif; }
     .wrap { max-width: none; margin: 0; padding: 0; }
     .no-print { display: none !important; }
-    h1 { font-family: Georgia, serif; font-size: 25pt; margin: 0 0 3pt; }
-    .sub { font-size: 13.6pt; margin: 0 0 9pt; }
-    .hr { border-top: 1.6pt solid #111; margin: 0 0 13pt; }
-    .hr-thin { border-top: 0.6pt solid #bbb; margin: 13pt 0 11pt; }
-    .lede { font-size: 10.4pt; margin: 0 0 2pt; }
-    li { padding-left: 29pt; margin-bottom: 12.5pt; page-break-inside: avoid; }
-    li::before { font-size: 11.5pt; top: 0.5pt; }
-    .t { font-size: 11pt; }
-    .cols { gap: 26pt; display: flex; }
+    h1 { font-family: Georgia, serif; font-size: 24pt; margin: 0 0 2pt; }
+    .sub { font-size: 13pt; margin: 0 0 8pt; }
+    .hr { border-top: 1.5pt solid #111; margin: 0 0 11pt; }
+    .hr-thin { border-top: 0.6pt solid #bbb; margin: 11pt 0 10pt; }
+    .lede { font-size: 10.5pt; margin: 0 0 2pt; }
+    .print-only { display: block !important; margin: 10pt 0 0; font-size: 9.8pt; color: #222; }
+    .print-only .lbl { font-weight: 700; }
+    .fill { display: inline-block; border-bottom: 0.6pt solid #999; height: 11pt; vertical-align: bottom; }
+    .fill.w1 { width: 2.35in; }
+    .fill.w2 { width: 1.35in; }
+    .fill.gapl { margin-left: 22pt; }
+    ol { page-break-inside: auto; }
+    li { padding-left: 28pt; margin-bottom: 10.5pt; page-break-inside: avoid; }
+    li::before { font-size: 11.2pt; top: 0.5pt; }
+    .t { font-size: 11pt; margin-bottom: 0; }
+    .cols { gap: 24pt; display: flex; page-break-inside: avoid; }
     .col { flex: 1; }
-    .ch { font-size: 8.9pt; letter-spacing: 1.1pt; margin: 0 0 4pt; }
-    .col p { font-size: 10.1pt; line-height: 1.4; }
-    footer { margin-top: 12pt; }
-    .name { font-size: 13.8pt; }
-    .contact { font-size: 10.2pt; }
+    .ch { font-size: 8.8pt; letter-spacing: 1pt; margin: 0 0 3pt; }
+    .col p { font-size: 10.2pt; line-height: 1.38; }
+    footer { margin-top: 11pt; page-break-inside: avoid; }
+    .name { font-size: 13.5pt; margin: 0 0 1pt; }
+    .contact { font-size: 10.4pt; margin: 0 0 1pt; }
     .contact a { color: #111; text-decoration: none; }
-    .creds { font-size: 9.3pt; margin: 0 0 7pt; }
-    .disc { font-size: 7.9pt; line-height: 1.35; }
+    .creds { font-size: 9.2pt; margin: 0 0 6pt; }
+    .disc { font-size: 7.7pt; line-height: 1.32; }
     a[href]:after { content: none !important; }
   }
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -165,6 +174,11 @@
     things worth doing early, before anyone decides whether to sell. Several of these are worth
     raising with your attorney first, and none of it is legal or tax advice.
   </p>
+
+  <div class="print-only">
+    <span class="lbl">Your attorney:</span> <span class="fill w1"></span>
+    <span class="lbl fill-label"><span class="fill gapl" style="border:0;width:0"></span>Phone:</span> <span class="fill w2"></span>
+  </div>
 
   <div class="actions no-print">
     <a class="btn solid" href="javascript:window.print()">Print or save as PDF</a>
@@ -190,13 +204,15 @@
       you can decide whether the locks need changing.
     </li>
     <li>
-      <span class="t">Stop or forward the mail.</span>
-      A full mailbox tells the whole street the house is empty.
+      <span class="t">Stop the mail, and keep the yard up.</span>
+      A full mailbox and long grass tell the whole street the house is empty. Whoever mowed it
+      before is usually glad to keep going.
     </li>
     <li>
-      <span class="t">Don&rsquo;t clear anything out yet.</span>
-      Belongings can be estate assets, and this is what families argue about most.
-      <span class="ask">Ask your attorney what has to be inventoried before anything leaves the house.</span>
+      <span class="t">Photograph the rooms before anything moves. Then don&rsquo;t clear anything out yet.</span>
+      Belongings can be estate assets, and this is what families argue about most. Photos taken
+      before the first box leaves settle arguments that otherwise have no answer.
+      <span class="ask">Ask your attorney what has to be inventoried first.</span>
     </li>
     <li>
       <span class="t">You&rsquo;ll get letters and calls offering to buy the house quickly. You don&rsquo;t have to answer any of them.</span>
