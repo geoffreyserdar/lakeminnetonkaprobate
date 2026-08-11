@@ -250,7 +250,42 @@
 
   <hr class="hr-thin">
 
-  <footer>
+  
+<div class="no-print" id="cb-wrap" style="margin:28px 0 10px; padding:20px; border:1px solid #ddd; border-radius:10px; background:#faf8f3;">
+  <p style="margin:0 0 4px; font-weight:700;">If it would help to talk any of this through</p>
+  <p style="margin:0 0 14px; color:#555;">Leave your name and a number and Geoffrey will call you. No obligation &mdash; and nothing here is required to use this checklist.</p>
+  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+    <input id="cb-name" placeholder="Your name" style="flex:1 1 180px; padding:10px 12px; border:1px solid #ccc; border-radius:8px; font-size:16px;">
+    <input id="cb-phone" placeholder="Phone" inputmode="tel" style="flex:1 1 150px; padding:10px 12px; border:1px solid #ccc; border-radius:8px; font-size:16px;">
+    <button id="cb-submit" class="btn solid" style="flex:0 0 auto; cursor:pointer;">Request a call</button>
+  </div>
+  <p id="cb-err" style="display:none; color:#a33; margin:8px 0 0; font-size:14px;">A name and a valid 10-digit phone number help the call actually reach you.</p>
+</div>
+<div class="no-print" id="cb-success" style="display:none; margin:28px 0 10px; padding:20px; border:1px solid #cfe3cf; border-radius:10px; background:#f2f8f2;">
+  <p style="margin:0; font-weight:700;">Thank you &mdash; Geoffrey will call you.</p>
+  <p style="margin:6px 0 0; color:#555;">Usually the same day. No paperwork, no obligation.</p>
+</div>
+<script>
+(function(){
+  function okPhone(raw){var d=raw.replace(/\D/g,'');if(d.length!==10)return false;if(d[0]==='0'||d[0]==='1')return false;if(d[3]==='0'||d[3]==='1')return false;if(/^(\d)\1{9}$/.test(d))return false;if(d.slice(3,6)==='555')return false;return true;}
+  var btn=document.getElementById('cb-submit');
+  if(!btn)return;
+  btn.addEventListener('click', async function(){
+    var n=document.getElementById('cb-name').value.trim();
+    var p=document.getElementById('cb-phone').value.trim();
+    var err=document.getElementById('cb-err');
+    if(!n||!okPhone(p)){err.style.display='block';return;}
+    err.style.display='none';btn.disabled=true;btn.textContent='Sending…';
+    var u=new URLSearchParams(window.location.search);
+    try{await fetch('https://formspree.io/f/mpqerwwk',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,formType:'checklist-callback',local:'Probate',intent:'Checklist call-back',utm_source:u.get('utm_source')||'direct',utm_medium:u.get('utm_medium')||'none',utm_campaign:u.get('utm_campaign')||'direct',utm_content:u.get('utm_content')||'',referrer:document.referrer||''})});}catch(e){}
+    try{await fetch('https://lead-alert-4343.twil.io/lead-alert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:'slx_9f3Kqe2R',name:n,phone:p,interest:'Checklist call-back',site:window.location.hostname+window.location.pathname,utm_source:u.get('utm_source')||'direct',utm_medium:u.get('utm_medium')||'none',utm_campaign:u.get('utm_campaign')||'direct'})});}catch(e){}
+    try{gtag('event','checklist_callback',{source:u.get('utm_source')||'direct',content:u.get('utm_content')||''});}catch(e){}
+    document.getElementById('cb-wrap').style.display='none';
+    document.getElementById('cb-success').style.display='block';
+  });
+})();
+</script>
+<footer>
     <p class="name">Geoffrey Serdar</p>
     <p class="contact">
       Serdar+Partners at Compass &nbsp;&middot;&nbsp;
