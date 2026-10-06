@@ -278,7 +278,7 @@
     err.style.display='none';btn.disabled=true;btn.textContent='Sending…';
     var u=new URLSearchParams(window.location.search);
     try{await fetch('https://formspree.io/f/mpqerwwk',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,formType:'checklist-callback',local:'Probate',intent:'Checklist call-back',utm_source:u.get('utm_source')||'direct',utm_medium:u.get('utm_medium')||'none',utm_campaign:u.get('utm_campaign')||'direct',utm_content:u.get('utm_content')||'',referrer:document.referrer||''})});}catch(e){}
-    try{await fetch('https://lead-alert-4343.twil.io/lead-alert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:'slx_9f3Kqe2R',name:n,phone:p,interest:'Checklist call-back',site:window.location.hostname+window.location.pathname,utm_source:u.get('utm_source')||'direct',utm_medium:u.get('utm_medium')||'none',utm_campaign:u.get('utm_campaign')||'direct'})});}catch(e){}
+    try{await fetch('https://lead-alert-4343.twil.io/lead-alert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,interest:'Checklist call-back',site:window.location.hostname+window.location.pathname,utm_source:u.get('utm_source')||'direct',utm_medium:u.get('utm_medium')||'none',utm_campaign:u.get('utm_campaign')||'direct'})});}catch(e){}
     try{gtag('event','checklist_callback',{source:u.get('utm_source')||'direct',content:u.get('utm_content')||''});}catch(e){}
     document.getElementById('cb-wrap').style.display='none';
     document.getElementById('cb-success').style.display='block';
