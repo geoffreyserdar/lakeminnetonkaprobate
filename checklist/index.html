@@ -219,8 +219,15 @@
   </div>
 
   <div class="actions no-print">
-    <a class="btn solid" href="javascript:try{gtag('event','checklist_print')}catch(e){};window.print()">Print or save as PDF</a>
+    <button type="button" id="print-btn" class="btn solid" style="font-family:inherit;cursor:pointer;">Print or save as PDF</button>
+    <a class="btn" href="/checklist/lake-minnetonka-probate-checklist.pdf" download>Download the PDF</a>
   </div>
+  <script>
+    document.getElementById('print-btn').addEventListener('click', function () {
+      try { gtag('event', 'checklist_print'); } catch (e) {}
+      window.print();
+    });
+  </script>
   <p class="nogate no-print">No form, no email address, nothing to sign up for. It&rsquo;s just here.</p>
 
   <hr class="hr-thin">
