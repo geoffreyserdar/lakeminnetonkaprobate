@@ -11,7 +11,7 @@
     var im=new Image();im.alt='Geoffrey Serdar';im.width=38;im.height=38;im.decoding='async';
     im.style.cssText='width:100%;height:100%;border-radius:50%;object-fit:cover;display:block';
     im.onload=function(){m.textContent='';m.appendChild(im);m.style.overflow='hidden';m.style.padding='0';m.style.borderWidth='1.5px';m.style.width='38px';m.style.height='38px'};
-    im.src='https://geoffreyserdar.com/img/geoffrey-face-120.jpg';})();
+    im.src='/img/geoffrey-face-120.jpg';})();
   function ev(name,label){try{if(typeof gtag==='function')gtag('event',name,{link_text:label,page_path:location.pathname})}catch(e){}}
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
   function set(html,href){if(!line)return;line.innerHTML=html;if(href)line.setAttribute('href',href)}
