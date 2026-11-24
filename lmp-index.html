@@ -710,8 +710,12 @@ body {
         </div>
         <div class="form-row">
           <label for="p-phone">Best number to reach you</label>
-          <input type="tel" id="p-phone" name="phone" placeholder="952-555-0100" autocomplete="tel" inputmode="numeric" />
-          <span class="form-inline-error" id="phone-error">Please enter a valid phone number.</span>
+          <input type="tel" id="p-phone" name="phone" placeholder="952-555-0100" autocomplete="tel" inputmode="numeric" aria-describedby="phone-error" aria-invalid="false" />
+          <span class="form-inline-error" id="phone-error" role="alert" aria-live="polite">That number doesn't look right. Please enter a real 10 digit phone number so we can reach you.</span>
+          <div aria-hidden="true" style="position:absolute;left:-10000px;top:0;width:1px;height:1px;overflow:hidden;">
+            <label for="lmp_hp">Leave blank</label>
+            <input id="lmp_hp" name="lmp_hp" type="text" tabindex="-1" autocomplete="off" value="" />
+          </div>
         </div>
         <button class="form-submit" id="probate-submit" type="button">Send my number to Geoffrey</button>
         <p class="form-consent">By submitting this form, you agree that Serdar+Partners at Compass may contact you by phone call and/or text message regarding your inquiry. Consent is not a condition of any purchase. Message &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy">Privacy Policy</a>.</p>
@@ -759,25 +763,32 @@ body {
   </div>
 </footer>
 
+<script src="/assets/phone-check.js?v=20261124"></script>
 <script>
 const phoneInput = document.getElementById('p-phone');
+function setPhoneError(on) {
+  const phoneErr = document.getElementById('phone-error');
+  phoneErr.style.display = on ? 'block' : 'none';
+  phoneInput.classList.toggle('error', on);
+  phoneInput.setAttribute('aria-invalid', on ? 'true' : 'false');
+}
 phoneInput.addEventListener('input', function(e) {
   let v = e.target.value.replace(/\D/g, '');
+  if (v.length > 10 && v.charAt(0) === '1') v = v.slice(1);
   if (v.length > 10) v = v.slice(0, 10);
   if (v.length >= 7) v = v.slice(0,3) + '-' + v.slice(3,6) + '-' + v.slice(6);
   else if (v.length >= 4) v = v.slice(0,3) + '-' + v.slice(3);
   e.target.value = v;
+  var digits = v.replace(/\D/g, '');
+  var showing = document.getElementById('phone-error').style.display === 'block';
+  if (!digits.length) setPhoneError(false);
+  else if (digits.length === 10 || showing) setPhoneError(!isValidPhone(v));
 });
-
-function isValidPhone(raw) {
-  const d = raw.replace(/\D/g, '');
-  if (d.length !== 10) return false;
-  if (d[0]==='0'||d[0]==='1') return false;
-  if (d[3]==='0'||d[3]==='1') return false;
-  if (/^(\d)\1{9}$/.test(d)) return false;
-  if (d.slice(3,6)==='555') return false;
-  return true;
-}
+phoneInput.addEventListener('blur', function() {
+  var v = phoneInput.value.trim();
+  if (!v) { setPhoneError(false); return; }
+  setPhoneError(!isValidPhone(v));
+});
 
 const LEAD_ALERT_URL    = 'https://lead-alert-4343.twil.io/lead-alert';
 const LEAD_ALERT_SECRET = 'slx_9f3Kqe2R';
@@ -785,16 +796,20 @@ const FORM_ID           = 'mpqerwwk';
 
 document.getElementById('probate-submit').addEventListener('click', async function() {
   const btn      = this;
+  const hp       = document.getElementById('lmp_hp');
+  if (hp && hp.value.trim()) {
+    document.getElementById('probate-form-wrap').style.display = 'none';
+    document.getElementById('probate-success').style.display = 'block';
+    return;
+  }
   const nameVal  = document.getElementById('p-name').value.trim();
   const phoneVal = document.getElementById('p-phone').value.trim();
   const nameErr  = document.getElementById('name-error');
-  const phoneErr = document.getElementById('phone-error');
   let valid = true;
 
   nameErr.style.display = 'none';
-  phoneErr.style.display = 'none';
+  setPhoneError(false);
   document.getElementById('p-name').classList.remove('error');
-  document.getElementById('p-phone').classList.remove('error');
 
   if (!nameVal) {
     nameErr.style.display = 'block';
@@ -802,8 +817,7 @@ document.getElementById('probate-submit').addEventListener('click', async functi
     valid = false;
   }
   if (!phoneVal || !isValidPhone(phoneVal)) {
-    phoneErr.style.display = 'block';
-    document.getElementById('p-phone').classList.add('error');
+    setPhoneError(true);
     valid = false;
   }
   if (!valid) return;
